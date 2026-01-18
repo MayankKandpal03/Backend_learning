@@ -1,0 +1,1 @@
+export const DB_NAME = "student_db"; // This is the name of the database we are using

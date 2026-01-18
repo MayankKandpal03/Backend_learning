@@ -1,5 +1,3 @@
-# README.md
-
 # Level 01: Backend Setup
 
 ## 1. Initialize the Project
