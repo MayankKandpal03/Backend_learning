@@ -1,6 +1,6 @@
 # Level 02: Database Setup, app.js Setup, Error Handler and Api response file created
 
-## 2. Files (what changed / what to review)
+## Files (what changed / what to review)
 
 * **`index.js`** — Application entry point. Loads environment, connects to MongoDB, and starts the server. **Known issue:** this file currently re-declares `app` after importing it. Remove the extra `const app = express();` and use the imported `app` instead.
 
