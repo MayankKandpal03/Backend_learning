@@ -62,9 +62,44 @@ userSchema.pre("save", async function(next){
      *  We will store the hashed password inside database for security reasons. For that we will use bcrypt and its syntax is 
      * password = bcrypt.hash(password , salt) This will store hashed password inside password
      */
-    this.password = bcrypt.hash(this.password,10)
+    this.passwordHash = bcrypt.hash(this.passwordHash,10)
     next()
 })
+
+/**
+ * Create an async method to compare password.
+ * bcrypt.compare(password,hashPassword)
+ */
+userSchema.methods.isPasswordCorrect = async function(password){
+   return bcrypt.compare(password,this.passwordHash)
+}
+
+userSchema.methods.generateAccessToken= function(){
+   return jwt.sign(
+      {
+         _id: this._id,
+         email: this.email,
+         userName: this.username
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+         expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+      }
+   )
+}
+userSchema.methods.generateRefreshToken= function(){
+      return jwt.sign(
+      {
+         _id: this._id,
+         email: this.email,
+         userName: this.username
+      },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+         expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+      }
+   )
+}
 
 const User = mongoose.model('User',userSchema)
 
