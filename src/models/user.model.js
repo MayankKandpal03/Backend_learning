@@ -44,6 +44,9 @@ const userSchema = new mongoose.Schema(
          passwordHash:{
             type:String,
             required:[true,'Password is Required']
+         },
+         refreshToken:{
+            type:String
          }
     },
     {timestamps: true}
@@ -92,8 +95,6 @@ userSchema.methods.generateRefreshToken= function(){
       return jwt.sign(
       {
          _id: this._id,
-         email: this.email,
-         userName: this.username
       },
       process.env.REFRESH_TOKEN_SECRET,
       {
