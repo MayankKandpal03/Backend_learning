@@ -27,6 +27,6 @@ export class AppError extends Error {
 // Async error handler -> Async wrap
 export const asyncWrap = (fn) => {
     return (req, res, next) => {
-        Promise.resolve(fn(req, res, next))
+       return Promise.resolve(fn(req, res, next))
         .catch(next);
 }};

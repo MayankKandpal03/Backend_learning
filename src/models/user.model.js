@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
          },
          watchHistory:[
             {
-                type:Schema.Types.ObjectId,
+                type:mongoose.Schema.Types.ObjectId,
                 ref:"Video"
             }
          ],
@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema(
             required:[true,'Password is Required']
          },
          refreshToken:{
-            type:String
+            type:String 
          }
     },
     {timestamps: true}
@@ -65,7 +65,7 @@ userSchema.pre("save", async function(next){
      *  We will store the hashed password inside database for security reasons. For that we will use bcrypt and its syntax is 
      * password = bcrypt.hash(password , salt) This will store hashed password inside password
      */
-    this.passwordHash = bcrypt.hash(this.passwordHash,10)
+    this.passwordHash = await bcrypt.hash(this.passwordHash,10)
     next()
 })
 
